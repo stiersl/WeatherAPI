@@ -4,7 +4,6 @@
 .classpath
 **/target/
 **/certs/
-*.pfx
 
 #### npm
 **/node_modules/
