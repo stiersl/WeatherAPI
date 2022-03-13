@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  WeatherAPI:
+    image: ${DOCKER_REGISTRY:-}weatherapi
+    build:
+      context: ./
+    ports:
+      - "5000:443"
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=https://+
+      - ASPNETCORE_HTTPS_PORT=5000
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=fred
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/root/.aspnet/https/sacert.pfx
