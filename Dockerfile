@@ -10,15 +10,13 @@ COPY *.csproj ./
 RUN dotnet restore
 #copy Everything else
 COPY . ./
-# build and publish
-FROM build AS publish
 RUN dotnet publish -c Release -o /app/publish
 
 # build the runtime image using a plain vinella dotnet aspnet image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-bullseye-slim
 WORKDIR /app
 # copy the stuff from publish 
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
 # copy the certs to the proper directory in the image 
 COPY "/https" /root/.aspnet/https/
 # copy the user secrets to the proper directory in the image
